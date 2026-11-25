@@ -114,7 +114,7 @@ function toast(text,time){
   G.toast={text,t:time||2.4};
   if(live)live.textContent=text;
 }
-function floater(x,y,text,color){G.floaters.push({x,y,text,color,t:1.3})}
+function floater(x,y,text,color){G.floaters.push({x:x+(Math.random()-.5)*70,y:y-Math.random()*26,text,color,t:1.3})}
 
 /* ---------- stops / doors ---------- */
 function nearestStop(){
@@ -262,8 +262,8 @@ function ambient(dt){
 
 /* ---------- finish ---------- */
 function stars(saved,delivered){
-  if(saved>=120&&delivered>=24)return 3;
-  if(saved>=60&&delivered>=14)return 2;
+  if(saved>=300&&delivered>=26)return 3;
+  if(saved>=170&&delivered>=18)return 2;
   return 1;
 }
 function finish(){
@@ -882,8 +882,14 @@ function startGame(){
   ensureAudio();
   if(actx&&actx.state==='suspended')actx.resume();
   newGame();buildRoute();setPlaying();
+  keepInView();
   toast('Drive to the green bus stop zone in Piran!',3.2);
   updateHud();
+}
+function keepInView(){
+  // make sure the whole game (status bar, scene) is on screen when play begins
+  const r=canvas.getBoundingClientRect();
+  if(r.top<80||r.bottom>window.innerHeight-10)root.scrollIntoView({block:'start',behavior:'instant'});
 }
 function pauseGame(){
   if(!G||G.mode!=='playing')return;
@@ -943,11 +949,16 @@ function resize(){
 window.addEventListener('resize',resize);
 if('ResizeObserver' in window)new ResizeObserver(resize).observe(canvas);
 if('IntersectionObserver' in window){
+  let hideTimer=0;
   new IntersectionObserver(es=>{
-    visible=es[0].isIntersecting;
-    if(!visible&&G&&G.mode==='playing'){pauseGame()}
-  },{threshold:.15}).observe($('game-stage'));
+    visible=es[es.length-1].isIntersecting;
+    root.dataset.vis=String(visible);
+    clearTimeout(hideTimer);
+    // pause only when the game has really been out of view for a moment
+    if(!visible)hideTimer=setTimeout(()=>{if(!visible&&G&&G.mode==='playing')pauseGame()},900);
+  },{threshold:0}).observe($('game-stage'));
 }
+
 buildRoute();resize();updateHud();
 $('game-best').textContent=best?'Best score: '+best.toLocaleString('en'):'';
 requestAnimationFrame(frame);

@@ -36,7 +36,7 @@ kbd{display:inline-block;min-width:26px;padding:2px 8px;border-radius:7px;border
 .controls div{display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)}
 .controls span{margin-left:4px}
 .overlay-note{font-size:.76rem;color:#7d978b;margin:14px 0 0}
-.overlay-best{margin:10px 0 0;color:var(--lime);font-weight:600;font-size:.9rem;min-height:1.2em}
+.overlay-best{margin:10px 0 12px;color:var(--lime);font-weight:600;font-size:.9rem;min-height:1.2em}
 .end-stars{font-size:2.4rem;letter-spacing:.2em;color:var(--gold);line-height:1.2;margin:0}
 .end-score{font-family:var(--display);font-size:1.5rem;margin:2px 0 14px}
 .end-score span{color:var(--lime);font-size:2.2rem;font-weight:700}
@@ -93,9 +93,16 @@ kbd{display:inline-block;min-width:26px;padding:2px 8px;border-radius:7px;border
  .end-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:560px){
- .hud-item{flex:1 1 90px;padding:8px 10px}
- .hud-item strong{font-size:1.1rem}
- .hud-next{flex:1 1 100%}
+ .game-hud{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+ .hud-item{grid-column:span 2}
+ .hud-item:nth-child(4),.hud-item:nth-child(5){grid-column:span 3}
+ .hud-item{padding:6px 9px;border-radius:12px}
+ .hud-item strong{font-size:1rem}
+ .hud-label{font-size:.58rem;letter-spacing:.1em}
+ .hud-next{grid-column:1/-1!important}
+ .hud-next strong{font-size:.95rem}
+ .hud-buttons{grid-column:1/-1}
+ .chip-btn{padding:7px 14px;font-size:.8rem}
  .route-stops{grid-template-columns:repeat(2,1fr)}
  .overlay-card{padding:16px 14px;border-radius:20px}
  .how li{padding:7px 10px 7px 42px}
