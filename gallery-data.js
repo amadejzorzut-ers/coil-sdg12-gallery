@@ -2,6 +2,7 @@
 // Add at least 12 ORIGINAL photographs: 6 from each student.
 // category must be: "challenge", "solutions", or "behind".
 const galleryPhotos = [
+  {src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRaXkJRJGsKOgEjfkX9MskufVWn39xnLy1WbGjLagp4w&s=10",title:"Portrait",description:"A portrait of a man.",category:"challenge",author:"Student A"},
   {src:"assets/images/sample-01.svg",title:"The devices we use",description:"Look at the technology around us.",category:"challenge",author:"Student A"},
   {src:"assets/images/sample-02.svg",title:"A second life",description:"A device may still be useful after repair.",category:"solutions",author:"Student A"},
   {src:"assets/images/sample-03.svg",title:"Sorting responsibly",description:"Electronic waste needs appropriate collection.",category:"challenge",author:"Student A"},
